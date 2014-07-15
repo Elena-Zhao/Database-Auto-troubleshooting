@@ -1,0 +1,35 @@
+The summary of metrics time series:
+The summary of metrics forecast using HoltWinters:
+metricsforecast$SSE:
+
+Forecast method: HoltWinters
+
+Model Information:
+Holt-Winters exponential smoothing without trend and without seasonal component.
+
+Call:
+HoltWinters(x = metricsts, beta = FALSE, gamma = FALSE)
+
+Smoothing parameters:
+ alpha: 0.5604677
+ beta : FALSE
+ gamma: FALSE
+
+Coefficients:
+      [,1]
+a 238.6233
+
+Error measures:
+                     ME     RMSE      MAE        MPE     MAPE      MASE
+Training set 0.01544773 16.75718 13.10266 0.09821398 4.268106 0.1568313
+
+Forecasts:
+    Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+536       238.6233 217.1280 260.1187 205.7491 271.4976
+537       238.6233 213.9821 263.2646 200.9379 276.3088
+538       238.6233 211.1947 266.0520 196.6749 280.5718
+539       238.6233 208.6655 268.5812 192.8068 284.4399
+540       238.6233 206.3339 270.9128 189.2408 288.0059
+541       238.6233 204.1596 273.0871 185.9156 291.3311
+542       238.6233 202.1146 275.1321 182.7880 294.4587
+543       238.6233 200.1782 277.0685 179.8265 297.4202
