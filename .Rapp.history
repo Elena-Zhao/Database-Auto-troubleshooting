@@ -1,0 +1,322 @@
+source(/Users/Elena/Desktop/ebay/R/scripts/chap9.R)
+source(Users/Elena/Desktop/ebay/R/scripts/chap9.R)
+source("/Users/Elena/Desktop/ebay/R/scripts/chap9.R")
+matrics
+metrics
+metricss
+metricts
+metricsts
+metrics<-read.table("/Users/Elena/Desktop/ebay/bbb.txt", header = TRUE, sep = " ")
+metrics<-read.table("/Users/Elena/Desktop/ebay/bbb.txt", header=TRUE, sep =" ")
+metrics<-read.table("/Users/Elena/Desktop/ebay/bbb.txt", header=TRUE, sep = " ");
+metrics<-read.table("/Users/Elena/Desktop/ebay/bbb.txt", header=TRUE, sep = "");
+metrics
+library(TSA)
+library(forecast)
+metricsts<-ts(metrics$VALUE)
+dev.new()
+plot.ts(metricsts)
+title(main="Time Series Plot for Metrics", sub="Figure 1", xlab="Time", ylab="Metrics Value", col.lab="green", cex.lab=0.75)
+auto.arima(metrics)
+auto.arima(metricsts)
+metricsarima<-auto.arima(metricsts)
+metricsforecast<-forecast.Arima(metricsarima, h = 20)
+dev.new(0)
+plot(forecastarima)
+plot(metricsforecast)
+plot.forecast(metricsforecast)
+metricsforecast
+acf(metricsforecast$residuals, lag.max = 20)
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+plot.ts(metricsforecast$residuals)
+plotForecastErrors(metricsforecast$residuals)
+??plotForecastErrors()
+?plotForecastErrors
+??plotForecastErrors
+edit()
+edit("vi")
+source("/Users/Elena/Desktop/Time Series Analysis.R")
+pdf("Time Series Analysis Plot.pdf")
+plot.ts(metricsforecast$residuals)
+dev.off(0)
+pdf("/Users/Elena/Desktop/Time Series Analysis Plot.pdf")
+plot.ts(metricsforecast$residuals)#
+dev.off(0)
+source("/Users/Elena/Desktop/Time Series Analysis.R")
+sink("TS Analysis", append=TRUE, split=TRUE)
+pdf(TS Analysis.pdf)
+pdf("TS Analysis.pdf")
+source("/Users/Elena/Desktop/Time Series Analysis.R")
+sink("/Users/Elena/Desktop/TS Analysis", append=TRUE, split=TRUE)#
+ pdf("/Users/Elena/Desktop/TS Analysis.pdf")#
+ source("/Users/Elena/Desktop/Time Series Analysis.R")
+source("/Users/Elena/Desktop/Time Series Analysis.R")
+metrics
+?sink()
+?source()
+metricsts
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/Time Series Analysis.R")
+source("/Users/Elena/Desktop/Time.R")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+sink("/Users/Elena/Desktop/TS Analysis", append=TRUE, split=TRUE)
+source("/Users/Elena/Desktop/Time.R")
+metricsts
+library("TTR")
+source("/Users/Elena/Desktop/Time 2.R")
+metrics<-read.table("/Users/Elena/Desktop/ebay/aaa.txt", header=TRUE, sep = "")#
+metricsts<-ts(metrics$VALUE, frequency=90)
+source("/Users/Elena/Desktop/Time 2.R")
+Box.test(metricsforecast2$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/Time.R")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+metricsforecast
+source("/Users/Elena/Desktop/Time.R")
+source("/Users/Elena/Desktop/Time2.R")
+source("/Users/Elena/Desktop/Time 2.R")
+metricscomponents
+metricsforecast
+metricsforecast$SSE
+metricsforecast2
+Box.test(metricsforecast2$residuals, lag = 20, type="Ljung-Box")
+metricsforecast2$residuals
+source("/Users/Elena/Desktop/Time 2.R")
+source("/Users/Elena/Desktop/Time.R")
+ls
+ls()
+sink("/Users/Elena/Desktop/TS Analysis 2", append=TRUE, split=TRUE")
+source("Users/Elena/Desktop/Time.R")
+source("Users/Elena/Desktop/Time")
+source("/Users/Elena/Desktop/Time.R")
+sink("/Users/Elena/Desktop/TS", append=TRUE, split=TRUE)
+source("/Users/Elena/Desktop/Time.R")
+metricsarima
+edit
+edit()
+edit("metricsarima")
+source("/Users/Elena/Desktop/Time.R")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/Time.R")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/Time.R")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/Time.R")
+boxtest
+source("/Users/Elena/Desktop/Time.R")
+?summary
+install(car)
+install.packages(car)
+install.packages("car")
+library(car)
+outlierTest(metricsts)
+outlierTest(metrics)
+?outlierTest
+sourcs("/Users/Elena/Desktop/Time.R")
+source("/Users/Elena/Desktop/Time.R")
+source("/Users/Elena/Desktop/Time 2.R")
+HoltWinters
+Forecast
+forecast
+forecast.HoltWinters
+edit(forecast.HoltWinters)
+source("/Users/Elena/Desktop/Time.R")
+edit()
+edit("")
+edit()
+plotForecastErrors <- function(forecasterrors) {#
+# make a red histogram of the forecast errors: mybinsize <- IQR(forecasterrors)/4#
+mysd <- sd(forecasterrors)#
+mymin <- min(forecasterrors) + mysd*5#
+mymax <- max(forecasterrors) + mysd*3#
+mybins <- seq(mymin, mymax, mybinsize) hist(forecasterrors, col="red", freq=FALSE, breaks=mybins) # freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd mynorm <- rnorm(10000, mean=0, sd=mysd)#
+myhist <- hist(mynorm, plot=FALSE, breaks=mybins)#
+# plot the normal curve as a blue line on top of the histogram of forecast errors: points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)#
+}
+plotForecastErrors <- function(forecasterrors){#
+# make a red histogram of the forecast errors: mybinsize <- IQR(forecasterrors)/4#
+mysd <- sd(forecasterrors)#
+mymin <- min(forecasterrors) + mysd*5#
+mymax <- max(forecasterrors) + mysd*3#
+mybins <- seq(mymin, mymax, mybinsize) hist(forecasterrors, col="red", freq=FALSE, breaks=mybins) # freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd mynorm <- rnorm(10000, mean=0, sd=mysd)#
+myhist <- hist(mynorm, plot=FALSE, breaks=mybins)#
+# plot the normal curve as a blue line on top of the histogram of forecast errors: points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)#
+}
+edit()
+plotForecastErrors<-function(forecasterrors){}
+plotForecastErrors<-function(forecasterrors){
+mysd<-sd(forecasterrors)
+mymin<-min(forecasterrors)+mysd*5
+mymax<-max(forecasterrors)+mysd*3
+mybins<-seq(mymin, mymax,mybinsize)hist(forecasterrors,col = "red", freq=FALSE,breaks=mybins)
+plotForecastErrors<-function(forecasterrors){#
++ mysd<-sd(forecasterrors)#
++ mymin<-min(forecasterrors)+mysd*5#
++ mymax<-max(forecasterrors)+mysd*3#
++ mybins<-seq(mymin, mymax,mybinsize)hist(forecasterrors,col = "red", freq=FALSE,breaks=mybins)
+plotForecastErrors<-function(forecasterrors){#
+mysd<-sd(forecasterrors)#
+mymin<-min(forecasterrors)+mysd*5#
+mymax<-max(forecasterrors)+mysd*3#
+mybins<-seq(mymin, mymax,mybinsize)
+hist(forecasterrors,col = "red", freq=FALSE,breaks=mybins)
+myhist<-hist(mynorm, plot=FALSE, breaks=mybins)
+}
+plotForecastErrors
+edit
+edit()
+source("/Users/Elena/Desktop/Time 3.R")
+plotForecastErrors(metricsforecast$residuals)
+metricsforecast
+source("/Users/Elena/Desktop/Time 3.R")
+source("/Users/Elena/Desktop/Time 2.R")
+plotForecastErrors
+edit(plotForecastErrors)
+source("/Users/Elena/Desktop/Time 2.R")
+edit(plotForecastErrors)
+plotForecastErrors<-function(forecasterrors){#
+	mybinsize <- IQR(forecasterrors)/4#
+mysd<-sd(forecasterrors)#
+mymin<-min(forecasterrors)+mysd*5#
+mymax<-max(forecasterrors)+mysd*3#
+mybins<-seq(mymin, mymax,mybinsize)#
+hist(forecasterrors,col = "red", freq=FALSE,breaks=mybins)#
+mynorm <- rnorm(10000, mean=0, sd=mysd)#
+myhist<-hist(mynorm, plot=FALSE, breaks=mybins)#
+points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)#
+}
+plotForecastErrors
+source("/Users/Elena/Desktop/Time 2.R")
+plotForecastErrors<-function(forecasterrors){#
+	# make a red histogram of the forecast errors: mybinsize <- IQR(forecasterrors)/4mysd <- sd(forecasterrors)mymin <- min(forecasterrors) + mysd*5mymax <- max(forecasterrors) + mysd*3mybins <- seq(mymin, mymax, mybinsize) hist(forecasterrors, col="red", freq=FALSE, breaks=mybins) # freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd mynorm <- rnorm(10000, mean=0, sd=mysd)myhist <- hist(mynorm, plot=FALSE, breaks=mybins)# plot the normal curve as a blue line on top of the histogram of forecast errors: points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)
+plotForecastErrors<-function(forecasterrors){#
+	# make a red histogram of the forecast errors: mybinsize <- IQR(forecasterrors)/4mysd <- sd(forecasterrors)mymin <- min(forecasterrors) + mysd*5mymax <- max(forecasterrors) + mysd*3mybins <- seq(mymin, mymax, mybinsize) hist(forecasterrors, col="red", freq=FALSE, breaks=mybins) # freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd mynorm <- rnorm(10000, mean=0, sd=mysd)myhist <- hist(mynorm, plot=FALSE, breaks=mybins)# plot the normal curve as a blue line on top of the histogram of forecast errors: points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)}
+plotForecastErrors <- function(forecasterrors) {# make a red histogram of the forecast errors: mybinsize <- IQR(forecasterrors)/4mysd <- sd(forecasterrors)mymin <- min(forecasterrors) + mysd*5mymax <- max(forecasterrors) + mysd*3mybins <- seq(mymin, mymax, mybinsize) hist(forecasterrors, col="red", freq=FALSE, breaks=mybins) # freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd mynorm <- rnorm(10000, mean=0, sd=mysd)myhist <- hist(mynorm, plot=FALSE, breaks=mybins)# plot the normal curve as a blue line on top of the histogram of forecast errors: points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)}
+plotForecastErrors
+source("/Users/Elena/Desktop/Time 2.R")
+source("/Users/Elena/Desktop/R/Time.R")
+source("/Users/Elena/Desktop/R/Time 2.R")
+edit("/Users/Elena/Desktop/R/Time 2.R")
+edit(/Users/Elena/Desktop/R/Time 2.R)
+open("/Users/Elena/Desktop/R/Time 2.R")
+Box.test(metricsforecast2$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/R/Time.R")
+Box.test(metricsforecast2$residuals, lag = 20, type="Ljung-Box")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+source()
+plotForecastErrors
+source("Users/Elena/Desktop/R/Time 3.R")
+source("/Users/Elena/Desktop/R/Time 3.R")
+boxtest2
+plot.ts(metricsts)
+plot.forecast(metricsforecast2)
+acf(metricsforecast$residuals, lag.max = 20)
+acf(metricsforecast2$residuals, lag.max = 20)
+plotForecastErrors(metricsforecast2$residuals)
+source("/Users/Elena/Desktop/R/Time 3.R")
+?hist
+source("/Users/Elena/Desktop/R/Time 3.R")
+plotForecastErrors(metricsforecast2$residuals)
+source("/Users/Elena/Desktop/R/Time 3.R")
+paste("metricsforecast$SSE:\n")
+cat("metricsforecast$SSE:\n")
+source("/Users/Elena/Desktop/R/Time 3.R")
+metricsforecast2<-forecast.HoltWinters(metricsforecast, h=8)
+summary(metricsforecast)
+summary(metricsforecast$SSE)
+summary(metricsforecast2)
+summary(boxtest2)
+summary(metricsts)
+summary(metricsts)#
+summary(metricsforecast)#
+summary(metricsforecast$SSE)#
+summary(metricsforecast2)#
+summary(boxtest2)
+metricsforecast
+source("/Users/Elena/Desktop/R/Time 3.R")
+source("/Users/Elena/Desktop/R/Time 2.R")
+source("/Users/Elena/Desktop/R/Time.R")
+source("/Users/Elena/Desktop/R/Time 2.R")
+forecast.HoltWinters
+source("/Users/Elena/Desktop/R/Holt Winter.R")
+source("/Users/Elena/Desktop/R/DATA/db.biz.items.bids")
+source("/Users/Elena/Desktop/R/DATA/db.biz.items.bids.txt")
+source("/Users/Elena/Desktop/R/DATA/bbb.txt")
+source("/Users/Elena/Desktop/R/Holt Winter")
+source("/Users/Elena/Desktop/R/Holt Winter.R")
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+plotForecastErrors <- function(forecasterrors) {#
+# make a red histogram of the forecast errors: #
+mybinsize <- IQR(forecasterrors)/4mysd <- sd(forecasterrors)mymin <- min(forecasterrors) + mysd*5mymax <- max(forecasterrors) + mysd*3mybins <- seq(mymin, mymax, mybinsize) #
+hist(forecasterrors, col="red", freq=FALSE, breaks=100) #
+# freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd #
+mynorm <- rnorm(10000, mean=0, sd=mysd)myhist <- hist(mynorm, plot=FALSE, breaks=9)# plot the normal curve as a blue line on top of the histogram of forecast errors: #
+points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)}
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+Box.test(metricsforecast2$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/R/Arima.R")
+Box.test(metricsforecast$residuals, lag = 20, type="Ljung-Box")
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+Box.test(metricsforecast2$residuals, lag = 20, type="Ljung-Box")
+HoltWinter
+?HoltWinter
+HoltWinters
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+metrics<-read.table("/Users/Elena/Desktop/R/DATA/db.os.cpu.idle.txt", header=TRUE, sep = "");#
+metricsts<-ts(metrics$VALUE)#
+plot.ts(metricsts)
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+edit(HoltWinters)
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+plotForecastErrors <- function(forecasterrors) {#
+# make a red histogram of the forecast errors: #
+mybinsize <- IQR(forecasterrors)/4mysd <- sd(forecasterrors)mymin <- min(forecasterrors) + mysd*5mymax <- max(forecasterrors) + mysd*3mybins <- seq(mymin, mymax, mybinsize) #
+hist(forecasterrors, col="red", freq=FALSE, breaks=100) #
+# freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd #
+mynorm <- rnorm(10000, mean=0, sd=mysd)myhist <- hist(mynorm, plot=FALSE, breaks=9)# plot the normal curve as a blue line on top of the histogram of forecast errors: #
+points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)}
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+?HoltWinters
+edit(HoltWinters)
+demo（）
+demo()
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+plotForecastErrors <- function(forecasterrors) {#
+# make a red histogram of the forecast errors: #
+mybinsize <- IQR(forecasterrors)/4mysd <- sd(forecasterrors)mymin <- min(forecasterrors) + mysd*5mymax <- max(forecasterrors) + mysd*3mybins <- seq(mymin, mymax, mybinsize) #
+hist(forecasterrors, col="red", freq=FALSE, breaks=100) #
+# freq=FALSE ensures the area under the histogram = 1#
+# generate normally distributed data with mean 0 and standard deviation mysd #
+mynorm <- rnorm(10000, mean=0, sd=mysd)myhist <- hist(mynorm, plot=FALSE, breaks=9)# plot the normal curve as a blue line on top of the histogram of forecast errors: #
+points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)}
+source("/Users/Elena/Desktop/R/Holt-Winter.R")
+metrics
+matrics<-edit(metrics)
+maen（）
+mean()
+var()
+?var
+simpletest<-function(var_1){}
+?qr
+simple<-function(data){data}
+simple(1)
+HoltWinters
+edit(HoltWinters)
+Auto.arima
+Auto.arima()
+library(TSA)
+Auto.arima
+Auto.arima()
+data（）
+data()
+q()
+vi(0)
+getwd()
+setwd("/Users/Elena/Desktop/Auto-Troubleshooting")
+vi
