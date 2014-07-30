@@ -1,25 +1,27 @@
-metrics<-read.table("/Users/Elena/Desktop/Auto-Troubleshooting/R/DATA/db.biz.items.bids.txt", header=TRUE, sep = "")
+rawData<-read.table("/Users/Elena/Desktop/Auto-Troubleshooting/R/DATA/db.biz.items.bids.txt", header=TRUE, sep = "")
 
 # Anomalies detection using time series analysis
-detection <- function(metrics) {
+detection <- function(metrics = rawData, step = 8, windowSize = 500, reportBaseline = 5) {
     #Create time series for all metrics values
     metricsts <-ts(metrics$VALUE)
     #Count: the number of values already used
     count <- 150
-    windowSize <- 500
+    #windowSize <- 500
     #Initialize dataset for pattern analysis
     forecastData <- metricsts[1:count]
     #Anomalies detected
     outliers <- NULL
     #all the forecasted values: mean
     forecasts <- NULL
+    #forecastsResiduals <- NULL
     anomalies <- NULL
-    forecastStep <- 2
+    forecastStep <- step
     #the upper and lower forescasts intervals: 80% and 95%
     forecastsUpper <- NULL
     forecastsLower <- NULL
     forecastsUpper2 <- NULL
     forecastsLower2 <- NULL
+    forecastsResiduals <- NULL
     
     #-----------------------------------------------------------------------
     # Tranvers the entire time series with step forecastStep
@@ -30,13 +32,15 @@ detection <- function(metrics) {
     #-----------------------------------------------------------------------
     
     while(count<length(metricsts)){
-        #if(length(forecastData) > windowSize){
-        #   forecastData <- forecastData[201: length(forecastData)]
-        #}
+        if(length(forecastData) > windowSize){
+           forecastData <- forecastData[201: length(forecastData)]
+        }
         metricsforecast<-HoltWinters(forecastData, beta=FALSE, gamma=FALSE)
-        #metricsforecast<-HoltWinters(forecastData)
-        metricsforecast2<-forecast.HoltWinters(metricsforecast, h = forecastStep)
+        metricsforecast2<-forecast.HoltWinters(metricsforecast, h = forecastStep, level = c(95, 99.5))
+        
         forecasts <- c(forecasts, metricsforecast2$mean)
+        forecastsResiduals <- c(forecastsResiduals, metricsforecast2$residuals)
+        
         forecastsUpper <- c(forecastsUpper, metricsforecast2$upper[, 2])
         forecastsLower <- c(forecastsLower, metricsforecast2$lower[, 2])
         forecastsUpper2 <- c(forecastsUpper2, metricsforecast2$upper[, 1])
@@ -46,29 +50,44 @@ detection <- function(metrics) {
         #printOutliers(data, metricsforecast2$upper[, 2], metricsforecast2$lower[, 2])
         tmp <- which(data > metricsforecast2$upper[, 2] | data < metricsforecast2$lower[, 2])
         outliers <- c(outliers,(count + tmp))
-        
         #outliers adjustment
-        #data[tmp] <- metricsforecast2$mean[tmp]
-        
-        forecastData<-c(forecastData, data)
+        data[tmp] <- mean(data, trim = 0.4)
+        forecastData <- c(forecastData, data)
         count <- count + forecastStep
     }
     
-    anomalies <- findAnomalies(outliers, 3)
-    
+    anomalies <- findAnomalies(outliers, reportBaseline)
+    anomalies[,1] <- outliers[anomalies[,1]]
+    residualSd <- sd(forecastsResiduals)
+
     #begin plotting
-    
     plot(metricsts, type = "l", main = "Anomalies Detection")
     lines(151:(150+length(forecasts)), forecasts, type = "l", col = "red")
     lines(151:(150+length(forecastsUpper)), forecastsUpper, type = "l", lty = "dashed", col = "blue")
     lines(151:(150+length(forecastsLower)), forecastsLower, type = "l", lty = "dashed", col = "blue")
-    #lines(151:(150+length(forecastsUpper2)), forecastsUpper2, type = "l", lty = "dashed", col = "gold")
-    #lines(151:(150+length(forecastsLower2)), forecastsLower2, type = "l", lty = "dashed", col = "gold")
-    points(outliers, metricsts[outliers], pch = 23, bg = "yellow")
-    points(outliers[anomalies[,1]], metricsts[anomalies[,1]], pch = 24, bg = "red")
+    lines(151:(150+length(forecastsUpper2)), forecastsUpper2, type = "l", lty = "dashed", col = "gold")
+    lines(151:(150+length(forecastsLower2)), forecastsLower2, type = "l", lty = "dashed", col = "gold")
+    points(anomalies[,1], metricsts[anomalies[,1]], pch = 24, bg = "red")
     
-    results1 <- cbind(metrics[outliers,], ForecastValues = forecasts[outliers-150], Residuals= (forecasts[outliers-150]-metricsts[outliers]))
+    #Compute outliers' residuals and scores
+    forecastSd <- sd(forecastsResiduals)
+    outliersResiduals <- forecasts[outliers-150]-metricsts[outliers]
+    outliersScores <- abs(outliersResiduals/forecastSd)
+    
+    #Categorize outliers into four degrees according to their severity and mark them with #different symbols
+    blueResidual <- which(outliersScores <= 5)
+    yellowResidual <- which((outliersScores > 5) & (outliersScores <= 9))
+    orangeResidual <- which((outliersScores > 9) & (outliersScores < 12))
+    redResidual <- which(outliersScores > 12)
+    points(outliers[blueResidual], metricsts[outliers[blueResidual]], pch = 23, bg = "blue")
+    points(outliers[yellowResidual], metricsts[outliers[yellowResidual]], pch = 23, bg = "yellow")
+    points(outliers[orangeResidual], metricsts[outliers[orangeResidual]], pch = 23, bg = "orange")
+    points(outliers[redResidual], metricsts[outliers[redResidual]], pch = 23, bg = "red")
+    
+    #legend(0.2, 95, c(blueResidual, yellowResidual, orangeResidual, redResidual), col = c(blue, yellow, orange, red))
+    results1 <- cbind(metrics[outliers,], ForecastValues = forecasts[outliers-150], Residuals= outliersResiduals, Scores = outliersScores)
     results2 <-anomalies
+    
     return(list(outliers = results1, anomalies = results2))
 }
 
