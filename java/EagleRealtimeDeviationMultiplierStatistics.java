@@ -11,7 +11,6 @@ import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
  *
  */
 public class EagleRealtimeDeviationMultiplierStatistics {
-	private DescriptiveStatistics stats;
 	private double madBaseLinePercentile = 90.0;
 	private int windowSize;
 	private final static double MEDIAN_PERCENTILE = 50.0;

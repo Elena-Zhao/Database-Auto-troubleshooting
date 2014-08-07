@@ -1,4 +1,4 @@
-rawData<-read.table("/Users/Elena/Desktop/Auto-Troubleshooting/R/DATA/db.biz.items.bids.txt", header=TRUE, sep = "")
+rawData<-read.table("/Users/Elena/Desktop/Auto-Troubleshooting/R/DATA/mpdb.oracle.BGet.STATE.10s.txt", header=TRUE, sep = "")
 
 # Anomalies detection using time series analysis
 detection <- function(metrics = rawData, step = 8, windowSize = 500, reportBaseline = 5) {
@@ -38,6 +38,8 @@ detection <- function(metrics = rawData, step = 8, windowSize = 500, reportBasel
         metricsforecast<-HoltWinters(forecastData, beta=FALSE, gamma=FALSE)
         metricsforecast2<-forecast.HoltWinters(metricsforecast, h = forecastStep, level = c(95, 99.5))
         
+        #arima <- auto.arima(forecastData)
+        #metricsforecast2 <- forecast.Arima(arima, h = forecastStep, level = c(95, 99.5))
         forecasts <- c(forecasts, metricsforecast2$mean)
         forecastsResiduals <- c(forecastsResiduals, metricsforecast2$residuals)
         
@@ -92,26 +94,30 @@ detection <- function(metrics = rawData, step = 8, windowSize = 500, reportBasel
 }
 
 findAnomalies <- function(outliers, k){
-    difference <- outliers[2:length(outliers)] - outliers[1:(length(outliers)-1)]
-    anomalies <- NULL
-    aCount <- NULL
-    j <- 1
-    while(j < length(difference) - k + 3){
-        if(all(difference[j : (j + k - 2)] == 1)){
-            anomalies <- c(anomalies, j)
-            aCount[length(anomalies)] <- k
-            j <- j+ k - 1
-            while(j < (length(difference) + 1)){
-                if(difference[j] != 1){
+    results <- NULL
+    if(length(outliers) != 0){
+        difference <- outliers[2:length(outliers)] - outliers[1:(length(outliers)-1)]
+        anomalies <- NULL
+        aCount <- NULL
+        j <- 1
+        while(j < length(difference) - k + 3){
+            if(all(difference[j : (j + k - 2)] == 1)){
+                anomalies <- c(anomalies, j)
+                aCount[length(anomalies)] <- k
+                j <- j+ k - 1
+                while(j < (length(difference) + 1)){
+                    if(difference[j] != 1){
+                        j <- j + 1
+                        break
+                    }
+                    aCount[length(anomalies)] <- aCount[length(anomalies)]+1
                     j <- j + 1
-                    break
                 }
-                aCount[length(anomalies)] <- aCount[length(anomalies)]+1
-                j <- j + 1
-            }
-        }else j <- j + 1
+            }else j <- j + 1
+        }
+        results <- cbind(Index = anomalies, Count = aCount)
+
     }
-    results <- cbind(Index = anomalies, Count = aCount)
     return(results)
 }
 
